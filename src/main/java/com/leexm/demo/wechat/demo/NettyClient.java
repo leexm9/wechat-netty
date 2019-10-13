@@ -31,7 +31,6 @@ public class NettyClient {
                 .channel(NioSocketChannel.class)
                 .attr(AttributeKey.newInstance("clientName"), "nettyClient")
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
-                .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override

@@ -12,12 +12,11 @@ import java.time.LocalDateTime;
  * @date 2019-10-13 11:45
  */
 public class FirstClientHandler extends ChannelInboundHandlerAdapter {
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         System.out.println(LocalDateTime.now() + "：客户端写数据");
-
         ByteBuf byteBuf = getByteBuf(ctx);
-
         ctx.channel().writeAndFlush(byteBuf);
     }
 

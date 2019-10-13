@@ -12,6 +12,16 @@ import java.time.LocalDateTime;
  * @date 2019-10-13 11:55
  */
 public class FirstServerHandler extends ChannelInboundHandlerAdapter {
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        ByteBuf byteBuf = ctx.alloc().buffer();
+        byte[] bytes = "Welcome to the world!".getBytes(Charset.forName("UTF-8"));
+        byteBuf.writeBytes(bytes);
+
+        ctx.channel().writeAndFlush(byteBuf);
+    }
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // 读取数据
