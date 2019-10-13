@@ -1,6 +1,8 @@
 package com.leexm.demo.wechat.server;
 
 import com.leexm.demo.wechat.codec.PacketDecoder;
+import com.leexm.demo.wechat.codec.PacketEncoder;
+import com.leexm.demo.wechat.codec.Spliter;
 import com.leexm.demo.wechat.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -9,8 +11,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.ServerSocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LineBasedFrameDecoder;
 
 /**
  * @author leexm
@@ -43,7 +43,7 @@ public class NettyServer {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
 //                        ch.pipeline().addLast(new ServerHandler());
 
-                        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
+                        ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginRequestHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());

@@ -20,7 +20,7 @@ import java.util.Map;
  */
 public class PacketCode {
 
-    private static final int MAGIC = 0x12345678;
+    public static final int MAGIC = 0x12345678;
 
     private final Map<Byte, Class<? extends Packet>> packetTypeMap;
 

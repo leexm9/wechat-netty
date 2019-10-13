@@ -5,7 +5,8 @@ import com.leexm.demo.wechat.client.handler.MessageResponseHandler;
 import com.leexm.demo.wechat.protocol.PacketCode;
 import com.leexm.demo.wechat.protocol.request.MessageRequestPacket;
 import com.leexm.demo.wechat.codec.PacketDecoder;
-import com.leexm.demo.wechat.server.handler.PacketEncoder;
+import com.leexm.demo.wechat.codec.PacketEncoder;
+import com.leexm.demo.wechat.codec.Spliter;
 import com.leexm.demo.wechat.util.LoginUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -15,7 +16,6 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -48,7 +48,7 @@ public class NettyClient {
                     protected void initChannel(NioSocketChannel ch) throws Exception {
 //                        ch.pipeline().addLast(new ClientHandler());
 
-                        ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
+                        ch.pipeline().addLast(new Spliter());
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new MessageResponseHandler());
