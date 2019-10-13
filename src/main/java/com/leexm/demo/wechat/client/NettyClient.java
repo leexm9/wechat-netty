@@ -1,5 +1,6 @@
 package com.leexm.demo.wechat.client;
 
+import com.leexm.demo.wechat.client.handler.ClientHandler;
 import com.leexm.demo.wechat.protocol.PacketCode;
 import com.leexm.demo.wechat.protocol.request.MessageRequestPacket;
 import com.leexm.demo.wechat.util.LoginUtils;

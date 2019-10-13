@@ -1,5 +1,6 @@
 package com.leexm.demo.wechat.server;
 
+import com.leexm.demo.wechat.server.handler.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
