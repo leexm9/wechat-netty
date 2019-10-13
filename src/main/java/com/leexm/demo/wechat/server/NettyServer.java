@@ -1,6 +1,7 @@
 package com.leexm.demo.wechat.server;
 
-import com.leexm.demo.wechat.server.handler.ServerHandler;
+import com.leexm.demo.wechat.codec.PacketDecoder;
+import com.leexm.demo.wechat.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -38,7 +39,12 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new ServerHandler());
+//                        ch.pipeline().addLast(new ServerHandler());
+
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginRequestHandler());
+                        ch.pipeline().addLast(new MessageRequestHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 

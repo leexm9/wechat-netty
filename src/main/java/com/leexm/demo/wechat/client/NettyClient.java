@@ -1,8 +1,11 @@
 package com.leexm.demo.wechat.client;
 
-import com.leexm.demo.wechat.client.handler.ClientHandler;
+import com.leexm.demo.wechat.client.handler.LoginResponseHandler;
+import com.leexm.demo.wechat.client.handler.MessageResponseHandler;
 import com.leexm.demo.wechat.protocol.PacketCode;
 import com.leexm.demo.wechat.protocol.request.MessageRequestPacket;
+import com.leexm.demo.wechat.codec.PacketDecoder;
+import com.leexm.demo.wechat.server.handler.PacketEncoder;
 import com.leexm.demo.wechat.util.LoginUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -42,7 +45,12 @@ public class NettyClient {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new ClientHandler());
+//                        ch.pipeline().addLast(new ClientHandler());
+
+                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(new LoginResponseHandler());
+                        ch.pipeline().addLast(new MessageResponseHandler());
+                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 
@@ -89,8 +97,6 @@ public class NettyClient {
                     requestMessage.setMessage(line);
                     ByteBuf byteBuf = PacketCode.getInstance().encode(channel.alloc(), requestMessage);
                     channel.writeAndFlush(byteBuf);
-                } else {
-                    return;
                 }
             }
         }).start();

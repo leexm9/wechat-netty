@@ -32,7 +32,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             responsePacket.setVersion(loginPacket.getVersion());
             if (valid(loginPacket)) {
                 System.out.println(String.format("用户 %s 登录成功", loginPacket.getUsername()));
-//                LoginUtils.markAsLogin(ctx.channel());
+                LoginUtils.markAsLogin(ctx.channel());
                 responsePacket.setSuccess(true);
             } else {
                 responsePacket.setSuccess(false);

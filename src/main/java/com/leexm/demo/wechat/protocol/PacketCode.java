@@ -57,6 +57,19 @@ public class PacketCode {
         return byteBuf;
     }
 
+    public void encode(ByteBuf byteBuf, Packet packet) {
+        // 序列化对象
+        byte[] bytes = Serializer.DEFAULT.serialize(packet);
+
+        // 编码
+        byteBuf.writeInt(MAGIC);
+        byteBuf.writeByte(packet.getVersion());
+        byteBuf.writeByte(Serializer.DEFAULT.getSerializerAlgorithm());
+        byteBuf.writeByte(packet.getCommand());
+        byteBuf.writeInt(bytes.length);
+        byteBuf.writeBytes(bytes);
+    }
+
     public Packet decode(ByteBuf byteBuf) {
         // 跳过魔数
         byteBuf.skipBytes(4);
@@ -86,6 +99,8 @@ public class PacketCode {
         }
         return null;
     }
+
+
 
     static class Holder {
         static final PacketCode packetCode = new PacketCode();
