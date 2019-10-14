@@ -33,12 +33,16 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginResponsePacket msg) throws Exception {
-        if (msg.isSuccess()) {
+        if (valid(msg)) {
             System.out.println(LocalDateTime.now() + " 登录成功！");
             LoginUtils.markAsLogin(ctx.channel());
         } else {
             System.out.println(LocalDateTime.now() + " 登录失败，失败原因：" + msg.getReason());
         }
+    }
+
+    private boolean valid(LoginResponsePacket loginPacket) {
+        return true;
     }
 
 }
