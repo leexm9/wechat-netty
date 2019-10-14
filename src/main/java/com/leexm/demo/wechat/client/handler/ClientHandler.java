@@ -5,7 +5,7 @@ import com.leexm.demo.wechat.protocol.request.LoginRequestPacket;
 import com.leexm.demo.wechat.protocol.PacketCode;
 import com.leexm.demo.wechat.protocol.response.LoginResponsePacket;
 import com.leexm.demo.wechat.protocol.response.MessageResponsePacket;
-import com.leexm.demo.wechat.util.LoginUtils;
+import com.leexm.demo.wechat.util.SessionUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -42,7 +42,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             LoginResponsePacket responsePacket = (LoginResponsePacket) packet;
             if (responsePacket.isSuccess()) {
                 System.out.println(LocalDateTime.now() + " 登录成功！");
-                LoginUtils.markAsLogin(ctx.channel());
+                SessionUtils.markAsLogin(ctx.channel());
             } else {
                 System.out.println(LocalDateTime.now() + " 登录失败，失败原因：" + responsePacket.getReason());
             }
