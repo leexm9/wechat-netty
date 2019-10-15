@@ -1,27 +1,23 @@
 package com.leexm.demo.wechat.client;
 
+import com.leexm.demo.wechat.client.console.ConsoleCommandManager;
+import com.leexm.demo.wechat.client.console.LoginConsoleCommand;
 import com.leexm.demo.wechat.client.handler.LoginResponseHandler;
 import com.leexm.demo.wechat.client.handler.MessageResponseHandler;
-import com.leexm.demo.wechat.protocol.PacketCode;
-import com.leexm.demo.wechat.protocol.request.LoginRequestPacket;
-import com.leexm.demo.wechat.protocol.request.MessageRequestPacket;
 import com.leexm.demo.wechat.codec.PacketDecoder;
 import com.leexm.demo.wechat.codec.PacketEncoder;
 import com.leexm.demo.wechat.codec.Spliter;
 import com.leexm.demo.wechat.util.SessionUtils;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -89,27 +85,15 @@ public class NettyClient {
     }
 
     private static void startConsoleThread(Channel channel) {
+        ConsoleCommandManager commandManager = new ConsoleCommandManager();
+        LoginConsoleCommand loginCommand = new LoginConsoleCommand();
         Scanner scanner = new Scanner(System.in);
         new Thread(() -> {
             while (!Thread.interrupted()) {
                 if (!SessionUtils.hasLogin(channel)) {
-                    System.out.print("输入用户名登录: ");
-                    // 创建登录对象
-                    LoginRequestPacket loginPacket = new LoginRequestPacket();
-                    String userName = scanner.nextLine();
-                    loginPacket.setUsername(userName);
-                    loginPacket.setPassword("12245");
-                    channel.writeAndFlush(loginPacket);
-                    try {
-                        TimeUnit.SECONDS.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    loginCommand.exec(scanner, channel);
                 } else {
-                    String text = scanner.nextLine();
-                    int index = StringUtils.indexOf(text," ");
-                    channel.writeAndFlush(new MessageRequestPacket(StringUtils.substring(text,0, index),
-                            StringUtils.substring(text, index + 1)));
+                    commandManager.exec(scanner, channel);
                 }
             }
         }).start();

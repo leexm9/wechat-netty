@@ -6,25 +6,25 @@ import com.leexm.demo.wechat.util.JsonUtils;
 
 /**
  * @author leexm
- * @date 2019-10-13 22:33
+ * @date 2019-10-15 02:03
  */
-public class MessageRequestPacket extends Packet {
+public class SendToGroupRequestPacket extends Packet {
 
-    private String toUserId;
+    private String groupId;
 
     private String message;
 
     @Override
     public Byte getCommand() {
-        return Command.MESSAGE_REQUEST;
+        return Command.GROUP_MESSAGE_REQUEST;
     }
 
-    public String getToUserId() {
-        return toUserId;
+    public String getGroupId() {
+        return groupId;
     }
 
-    public void setToUserId(String toUserId) {
-        this.toUserId = toUserId;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
     }
 
     public String getMessage() {
