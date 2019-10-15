@@ -2,9 +2,7 @@ package com.leexm.demo.wechat.client;
 
 import com.leexm.demo.wechat.client.console.ConsoleCommandManager;
 import com.leexm.demo.wechat.client.console.LoginConsoleCommand;
-import com.leexm.demo.wechat.client.handler.CreateGroupResponseHandler;
-import com.leexm.demo.wechat.client.handler.LoginResponseHandler;
-import com.leexm.demo.wechat.client.handler.MessageResponseHandler;
+import com.leexm.demo.wechat.client.handler.*;
 import com.leexm.demo.wechat.codec.PacketDecoder;
 import com.leexm.demo.wechat.codec.PacketEncoder;
 import com.leexm.demo.wechat.codec.Spliter;
@@ -50,6 +48,8 @@ public class NettyClient {
                         ch.pipeline().addLast(new PacketDecoder());
                         ch.pipeline().addLast(new LoginResponseHandler());
                         ch.pipeline().addLast(new CreateGroupResponseHandler());
+                        ch.pipeline().addLast(new JoinGroupResponseHandler());
+                        ch.pipeline().addLast(new ListGroupMembersResponseHandler());
                         ch.pipeline().addLast(new MessageResponseHandler());
                         ch.pipeline().addLast(new PacketEncoder());
                     }

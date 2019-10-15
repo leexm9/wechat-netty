@@ -2,6 +2,7 @@ package com.leexm.demo.wechat.server.handler;
 
 import com.leexm.demo.wechat.protocol.request.CreateGroupRequestPacket;
 import com.leexm.demo.wechat.protocol.response.CreateGroupResponsePacket;
+import com.leexm.demo.wechat.session.Session;
 import com.leexm.demo.wechat.util.IdUtils;
 import com.leexm.demo.wechat.util.SessionUtils;
 import io.netty.channel.Channel;
@@ -26,6 +27,10 @@ public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<Creat
 
         // 创建一个 channelGroup
         ChannelGroup channelGroup = new DefaultChannelGroup(ctx.executor());
+        // 加入自身
+        channelGroup.add(ctx.channel());
+        userNames.add(SessionUtils.getSession(ctx.channel()).getUserName());
+        // 加入其他人
         userIds.stream().forEach(userId -> {
             Channel channel = SessionUtils.getChannel(userId);
             if (channel != null) {
