@@ -1,9 +1,13 @@
 package com.leexm.demo.wechat.protocol;
 
 import com.leexm.demo.wechat.protocol.command.Command;
+import com.leexm.demo.wechat.protocol.request.CreateGroupRequestPacket;
 import com.leexm.demo.wechat.protocol.request.LoginRequestPacket;
+import com.leexm.demo.wechat.protocol.request.LogoutRequestPacket;
 import com.leexm.demo.wechat.protocol.request.MessageRequestPacket;
+import com.leexm.demo.wechat.protocol.response.CreateGroupResponsePacket;
 import com.leexm.demo.wechat.protocol.response.LoginResponsePacket;
+import com.leexm.demo.wechat.protocol.response.LogoutResponsePacket;
 import com.leexm.demo.wechat.protocol.response.MessageResponsePacket;
 import com.leexm.demo.wechat.serializer.Serializer;
 import com.leexm.demo.wechat.serializer.SerializerAlgorithm;
@@ -30,8 +34,12 @@ public class PacketCode {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(Command.LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(Command.LOGOUT_RESPONSE, LogoutResponsePacket.class);
         packetTypeMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetTypeMap.put(Command.CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(Command.CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap = new HashMap<>();
         serializerMap.put(SerializerAlgorithm.JSON, new JsonSerializer());
