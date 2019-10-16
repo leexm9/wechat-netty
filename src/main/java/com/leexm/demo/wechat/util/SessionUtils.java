@@ -59,4 +59,8 @@ public class SessionUtils {
         return groupChannelMap.get(groupId);
     }
 
+    public static void removeChannelGroup(String groupId) {
+        groupChannelMap.remove(groupId);
+    }
+
 }

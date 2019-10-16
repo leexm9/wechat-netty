@@ -13,7 +13,8 @@ public class JoinGroupResponseHandler extends SimpleChannelInboundHandler<JoinGr
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupResponsePacket msg) throws Exception {
         if (msg.isSuccess()) {
-            System.out.println(String.format("加入群聊[%s]成功!", msg.getGroupId()));
+            String message = msg.getType() == 0 ? String.format("加入群聊[%s]成功!", msg.getGroupId()) : msg.getReason();
+            System.out.println(message);
         } else {
             System.out.println(String.format("加入群聊[%s]失败，原因:%s.", msg.getGroupId(), msg.getReason()));
         }

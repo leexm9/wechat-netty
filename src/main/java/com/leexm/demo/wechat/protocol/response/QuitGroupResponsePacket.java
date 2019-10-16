@@ -6,24 +6,24 @@ import com.leexm.demo.wechat.util.JsonUtils;
 
 /**
  * @author leexm
- * @date 2019-10-16 01:20
+ * @date 2019-10-16 22:43
  */
-public class JoinGroupResponsePacket extends Packet {
+public class QuitGroupResponsePacket extends Packet {
 
     private boolean success;
 
     private String groupId;
 
-    private String reason;
+    private String message;
 
-    /** 标记加入群聊响应分类
+    /** 标记退出群聊响应请求分类
      * 0:表示加入群组请求，1:通知群组成员新用户加入
      */
     private int type;
 
     @Override
     public Byte getCommand() {
-        return Command.JOIN_GROUP_RESPONSE;
+        return Command.QUIT_GROUP_RESPONSE;
     }
 
     public boolean isSuccess() {
@@ -34,20 +34,20 @@ public class JoinGroupResponsePacket extends Packet {
         this.success = success;
     }
 
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
     public String getGroupId() {
         return groupId;
     }
 
     public void setGroupId(String groupId) {
         this.groupId = groupId;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public int getType() {
