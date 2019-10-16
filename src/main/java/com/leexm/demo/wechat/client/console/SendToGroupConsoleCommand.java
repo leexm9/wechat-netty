@@ -1,6 +1,6 @@
 package com.leexm.demo.wechat.client.console;
 
-import com.leexm.demo.wechat.protocol.request.SendToGroupRequestPacket;
+import com.leexm.demo.wechat.protocol.request.GroupMessageRequestPacket;
 import io.netty.channel.Channel;
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,7 +15,7 @@ public class SendToGroupConsoleCommand implements ConsoleCommand {
     @Override
     public void exec(Scanner scanner, Channel channel) {
         System.out.print("发送消息给某个某个群组:");
-        SendToGroupRequestPacket packet = new SendToGroupRequestPacket();
+        GroupMessageRequestPacket packet = new GroupMessageRequestPacket();
         String text = scanner.nextLine();
         int index = StringUtils.indexOf(text," ");
         packet.setGroupId(StringUtils.substring(text, 0, index));

@@ -8,7 +8,7 @@ import com.leexm.demo.wechat.util.JsonUtils;
  * @author leexm
  * @date 2019-10-15 02:03
  */
-public class SendToGroupRequestPacket extends Packet {
+public class GroupMessageRequestPacket extends Packet {
 
     private String groupId;
 
