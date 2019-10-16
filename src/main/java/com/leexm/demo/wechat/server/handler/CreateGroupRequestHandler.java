@@ -6,6 +6,7 @@ import com.leexm.demo.wechat.session.Session;
 import com.leexm.demo.wechat.util.IdUtils;
 import com.leexm.demo.wechat.util.SessionUtils;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -18,7 +19,13 @@ import java.util.List;
  * @author leexm
  * @date 2019-10-15 23:47
  */
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
+    private CreateGroupRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket msg) throws Exception {

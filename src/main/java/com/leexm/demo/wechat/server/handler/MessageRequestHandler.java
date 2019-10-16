@@ -5,6 +5,7 @@ import com.leexm.demo.wechat.protocol.response.MessageResponsePacket;
 import com.leexm.demo.wechat.session.Session;
 import com.leexm.demo.wechat.util.SessionUtils;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -12,7 +13,13 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @author leexm
  * @date 2019-10-14 00:45
  */
+@ChannelHandler.Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+
+    public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+
+    private MessageRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket msg) throws Exception {

@@ -1,6 +1,7 @@
 package com.leexm.demo.wechat.server.handler;
 
 import com.leexm.demo.wechat.util.SessionUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -8,7 +9,13 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @author leexm
  * @date 2019-10-14 08:18
  */
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter {
+
+    public static final AuthHandler INSTANCE = new AuthHandler();
+
+    private AuthHandler() {
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

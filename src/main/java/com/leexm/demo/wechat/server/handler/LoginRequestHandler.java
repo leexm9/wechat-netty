@@ -4,6 +4,7 @@ import com.leexm.demo.wechat.protocol.request.LoginRequestPacket;
 import com.leexm.demo.wechat.protocol.response.LoginResponsePacket;
 import com.leexm.demo.wechat.session.Session;
 import com.leexm.demo.wechat.util.SessionUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -13,7 +14,13 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author leexm
  * @date 2019-10-14 00:40
  */
+@ChannelHandler.Sharable
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
+    private LoginRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket msg) throws Exception {

@@ -4,6 +4,7 @@ import com.leexm.demo.wechat.protocol.request.JoinGroupRequestPacket;
 import com.leexm.demo.wechat.protocol.response.JoinGroupResponsePacket;
 import com.leexm.demo.wechat.session.Session;
 import com.leexm.demo.wechat.util.SessionUtils;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -12,7 +13,13 @@ import io.netty.channel.group.ChannelGroup;
  * @author leexm
  * @date 2019-10-16 01:17
  */
+@ChannelHandler.Sharable
 public class JoinGroupRequestHandler extends SimpleChannelInboundHandler<JoinGroupRequestPacket> {
+
+    public static final JoinGroupRequestHandler INSTANCE = new JoinGroupRequestHandler();
+
+    private JoinGroupRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, JoinGroupRequestPacket msg) throws Exception {
