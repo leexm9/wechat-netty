@@ -1,7 +1,5 @@
 package com.leexm.demo.wechat.server;
 
-import com.leexm.demo.wechat.codec.PacketDecoder;
-import com.leexm.demo.wechat.codec.PacketEncoder;
 import com.leexm.demo.wechat.codec.Spliter;
 import com.leexm.demo.wechat.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
@@ -45,12 +43,7 @@ public class NettyServer {
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                         // 增加用户认证 handler
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
-                        ch.pipeline().addLast(CreateGroupRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(MessageRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(JoinGroupRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(QuitGroupRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(ListGroupMembersRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(GroupMessageRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(IMHandler.INSTANCE);
                         ch.pipeline().addLast(LogoutRequestHandler.INSTANCE);
                     }
                 });
