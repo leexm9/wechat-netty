@@ -14,7 +14,7 @@ public class SendToUserConsoleCommand implements ConsoleCommand {
 
     @Override
     public void exec(Scanner scanner, Channel channel) {
-        System.out.println("发消息给某个用户:");
+        System.out.print("发消息给某个用户:");
         String text = scanner.nextLine();
         int index = StringUtils.indexOf(text, " ");
         MessageRequestPacket packet = new MessageRequestPacket();

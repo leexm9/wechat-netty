@@ -41,7 +41,7 @@ public class NettyServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
                         ch.pipeline().addLast(new Spliter());
-                        ch.pipeline().addLast(new PacketDecoder());
+                        ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
                         // 增加用户认证 handler
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
@@ -52,7 +52,6 @@ public class NettyServer {
                         ch.pipeline().addLast(ListGroupMembersRequestHandler.INSTANCE);
                         ch.pipeline().addLast(GroupMessageRequestHandler.INSTANCE);
                         ch.pipeline().addLast(LogoutRequestHandler.INSTANCE);
-                        ch.pipeline().addLast(new PacketEncoder());
                     }
                 });
 
