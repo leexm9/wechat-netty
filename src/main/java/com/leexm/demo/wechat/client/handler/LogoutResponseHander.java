@@ -1,5 +1,6 @@
 package com.leexm.demo.wechat.client.handler;
 
+import com.leexm.demo.wechat.attribute.Attributes;
 import com.leexm.demo.wechat.protocol.response.LogoutResponsePacket;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -12,6 +13,7 @@ public class LogoutResponseHander extends SimpleChannelInboundHandler<LogoutResp
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LogoutResponsePacket msg) throws Exception {
+        ctx.channel().attr(Attributes.LOGIN).set(null);
         System.out.println("退出登录");
     }
 

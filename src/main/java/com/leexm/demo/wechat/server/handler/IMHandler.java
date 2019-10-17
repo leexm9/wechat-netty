@@ -2,6 +2,7 @@ package com.leexm.demo.wechat.server.handler;
 
 import com.leexm.demo.wechat.protocol.Packet;
 import com.leexm.demo.wechat.protocol.command.Command;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -12,6 +13,7 @@ import java.util.Map;
  * @author leexm
  * @date 2019-10-17 00:50
  */
+@ChannelHandler.Sharable
 public class IMHandler extends SimpleChannelInboundHandler<Packet> {
 
     public static final IMHandler INSTANCE = new IMHandler();
@@ -26,6 +28,7 @@ public class IMHandler extends SimpleChannelInboundHandler<Packet> {
         handlerMap.put(Command.QUIT_GROUP_REQUEST, QuitGroupRequestHandler.INSTANCE);
         handlerMap.put(Command.LIST_GROUP_MEMBERS_REQUEST, ListGroupMembersRequestHandler.INSTANCE);
         handlerMap.put(Command.GROUP_MESSAGE_REQUEST, GroupMessageRequestHandler.INSTANCE);
+        handlerMap.put(Command.LOGOUT_REQUEST, LogoutRequestHandler.INSTANCE);
     }
 
     @Override
@@ -33,4 +36,9 @@ public class IMHandler extends SimpleChannelInboundHandler<Packet> {
         handlerMap.get(packet.getCommand()).channelRead(ctx, packet);
     }
 
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        cause.printStackTrace();
+        ctx.close();
+    }
 }
