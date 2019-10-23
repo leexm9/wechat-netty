@@ -1,7 +1,6 @@
 package com.leexm.demo.wechat.server;
 
 import com.leexm.demo.wechat.codec.Spliter;
-import com.leexm.demo.wechat.handler.IMIdleStateHandler;
 import com.leexm.demo.wechat.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
